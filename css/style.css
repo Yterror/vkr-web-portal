@@ -35,9 +35,12 @@ body{
 .container{
 
     width:90%;
+    
     max-width:1200px;
 
     margin:auto;
+
+
 }
 
 header{
@@ -65,6 +68,33 @@ header .container{
     font-size:24px;
 
     font-weight:700;
+}
+
+.logo a{
+
+    display:flex;
+
+    flex-direction:column;
+
+    text-decoration:none;
+
+    color:white;
+}
+
+.logo span{
+
+    font-size:28px;
+
+    color:white;
+}
+
+.logo small{
+
+    font-size:16px;
+
+    font-weight:400;
+
+    color:white;
 }
 
 nav ul{
@@ -181,4 +211,73 @@ footer{
     padding:20px;
 
     margin-top:60px;
+}
+
+.login-box{
+
+    max-width:420px;
+
+    margin:80px auto;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:var(--shadow);
+}
+
+.login-box h2{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+    color:var(--primary);
+}
+
+.login-box form{
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.login-box label{
+
+    margin-bottom:8px;
+
+    font-weight:600;
+}
+
+.login-box input{
+
+    margin-bottom:20px;
+
+    padding:14px;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    font-family:'Inter', sans-serif;
+}
+
+.login-box input:focus{
+
+    outline:none;
+
+    border-color:var(--primary);
+}
+
+.login-box .btn{
+
+    width:100%;
+
+    border:none;
+
+    cursor:pointer;
 }
