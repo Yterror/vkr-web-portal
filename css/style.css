@@ -374,3 +374,51 @@ footer{
 
 }
 
+#about
+
+.about{
+
+    max-width:1000px;
+
+    margin:60px auto;
+
+    background:white;
+
+    padding:50px;
+
+    border-radius:20px;
+
+    box-shadow:var(--shadow);
+}
+
+.about h1{
+
+    color:var(--primary);
+
+    margin-bottom:25px;
+
+    text-align:center;
+}
+
+.about h2{
+
+    color:var(--primary);
+
+    margin-top:35px;
+
+    margin-bottom:15px;
+}
+
+.about p{
+
+    margin-bottom:18px;
+
+    text-align:justify;
+}
+
+.about ul{
+
+    margin-left:25px;
+
+    line-height:2;
+}
