@@ -172,6 +172,15 @@ nav a:hover{
     transition:var(--transition);
 
     font-weight:600;
+
+    border:none;
+
+    font-family:'Inter', sans-serif;
+
+    font-size:15px;
+
+    cursor:pointer;
+
 }
 
 .btn:hover{
@@ -536,8 +545,50 @@ footer{
 
 .poll-box .btn{
 
-    display:block;
+    display:inline-block;
 
     margin:30px auto 0;
 
+}
+
+#results
+
+.results-page{
+    padding:60px 0;
+}
+
+.results-card{
+    width:800px;
+    margin:0 auto;
+    background:#fff;
+    padding:40px;
+    border-radius:12px;
+    box-shadow:0 3px 12px rgba(0,0,0,.1);
+}
+
+.results-card h1{
+    margin-bottom:20px;
+}
+
+.results-card h3{
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+.progress{
+    width:100%;
+    height:18px;
+    background:#e6e6e6;
+    border-radius:20px;
+    margin-bottom:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    background:#2d72d9;
+}
+
+.results-card hr{
+    margin:25px 0;
 }
