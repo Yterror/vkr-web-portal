@@ -102,8 +102,24 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <a href="create-poll.php" class="btn">
                     Создать
                 </a>
-
+                
             </div>
+            
+            <div class="teacher-card">
+                
+                <h2>Файлы</h2>
+                
+                <p>
+                    Pагрузка файлов на сервер.
+                </p>
+                
+                
+                <a href="files.php" class="btn">
+                    Открыть
+                </a>
+            </div>
+            
+            
 
 
             <?php foreach ($polls as $poll): ?>
