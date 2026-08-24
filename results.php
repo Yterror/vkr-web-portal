@@ -187,6 +187,15 @@ $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <a href="teacher.php" class="btn">
                 Вернуться к панели преподавателя
             </a>
+            
+            <a href="export-results.php?id=<?= $poll_id ?>" class="btn">
+                Скачать Excel
+            </a>
+            
+            <a href="export-results-word.php?id=<?= $poll_id ?>" class="btn">
+                Скачать Word
+            </a>
+            
 
         </div>
 
