@@ -19,6 +19,12 @@ if (!isset($_SESSION['user_id'])) {
 
     <title>Личный кабинет</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -47,6 +53,16 @@ if (!isset($_SESSION['user_id'])) {
 <section class="teacher-panel">
 
     <div class="container">
+
+        <div class="breadcrumbs">
+
+            <a href="index.php">Главная</a>
+
+            <span>→</span>
+
+            <span>Личный кабинет</span>
+
+        </div>
 
         <h1>Личный кабинет</h1>
 
@@ -82,7 +98,7 @@ if (!isset($_SESSION['user_id'])) {
                     Доступные опросы.
                 </p>
 
-                <a href="my-polls.php" class="btn">
+                <a href="polls.php" class="btn">
                     Открыть
                 </a>
 
@@ -133,10 +149,12 @@ if (!isset($_SESSION['user_id'])) {
 
             </div>
 
+
         </div>
 
     </div>
 
+</section>
 </section>
 
 </main>

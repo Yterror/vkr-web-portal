@@ -61,7 +61,21 @@ $history = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="container">
 
-        <h1>История опросов</h1>
+    <div class="breadcrumbs">
+
+        <a href="index.php">Главная</a>
+
+        <span>→</span>
+
+        <a href="profile.php">Личный кабинет</a>
+
+        <span>→</span>
+
+        <span>История</span>
+
+    </div>
+
+    <h1>История опросов</h1>
 
         <?php if (count($history) > 0): ?>
 

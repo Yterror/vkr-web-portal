@@ -35,7 +35,10 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -63,11 +66,23 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <ul class="menu">
 
-                <li><a href="index.php">Главная</a></li>
+                <li>
+                    <a href="index.php">
+                        Главная
+                    </a>
+                </li>
 
-                <li><a href="polls.php">Опросы</a></li>
+                <li>
+                    <a href="polls.php">
+                        Опросы
+                    </a>
+                </li>
 
-                <li><a href="about.php">О нас</a></li>
+                <li>
+                    <a href="about.php">
+                        О нас
+                    </a>
+                </li>
 
             </ul>
 
@@ -83,7 +98,29 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="container">
 
-        <h1>Доступные опросы</h1>
+        <div class="breadcrumbs">
+
+            <a href="index.php">
+                Главная
+            </a>
+
+            <span>→</span>
+
+            <a href="profile.php">
+                Личный кабинет
+            </a>
+
+            <span>→</span>
+
+            <span>
+                Опросы
+            </span>
+
+        </div>
+
+        <h1>
+            Доступные опросы
+        </h1>
 
         <div class="polls">
 
@@ -98,18 +135,33 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </h2>
 
                         <p>
-                            <strong>Описание:</strong>
+
+                            <strong>
+                                Описание:
+                            </strong>
+
                             <?= htmlspecialchars($poll['POLL_DESCRIPTION']) ?>
+
                         </p>
 
                         <p>
-                            <strong>Статус:</strong>
+
+                            <strong>
+                                Статус:
+                            </strong>
+
                             <?= htmlspecialchars($poll['POLL_STATUS']) ?>
+
                         </p>
 
                         <p>
-                            <strong>Дата окончания:</strong>
+
+                            <strong>
+                                Дата окончания:
+                            </strong>
+
                             <?= htmlspecialchars($poll['POLL_END_DATE']) ?>
+
                         </p>
 
                         <a
@@ -141,7 +193,7 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <footer>
 
-© 2026 Московский университет им. С.Ю. Витте
+    © 2026 Московский университет им. С.Ю. Витте
 
 </footer>
 

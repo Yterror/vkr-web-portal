@@ -9,7 +9,8 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$sql = "SELECT DISTINCT polls.POLL_ID, polls.POLL_TITLE
+$sql = "SELECT DISTINCT polls.POLL_ID, polls.POLL_TITLE,
+               poll_participants.PART_STATUS
         FROM poll_participants
         JOIN polls
         ON poll_participants.PART_POLL_ID = polls.POLL_ID
@@ -44,10 +45,12 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="container">
 
         <div class="logo">
+
             <a href="index.php">
                 <span>МУИВ</span>
                 <small>Web-портал опросов</small>
             </a>
+
         </div>
 
     </div>
@@ -60,7 +63,21 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="container">
 
-        <h1>Мои результаты</h1>
+    <div class="breadcrumbs">
+
+        <a href="index.php">Главная</a>
+
+        <span>→</span>
+
+        <a href="profile.php">Личный кабинет</a>
+
+        <span>→</span>
+
+        <span>Мои результаты</span>
+
+    </div>
+
+    <h1>Мои результаты</h1>
 
         <?php if (count($polls) > 0): ?>
 
@@ -72,12 +89,60 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?= htmlspecialchars($poll['POLL_TITLE']) ?>
                     </h2>
 
-                    <a
-                        href="results.php?id=<?= $poll['POLL_ID'] ?>"
-                        class="btn"
-                    >
-                        Открыть результаты
-                    </a>
+                    <p>
+                        Статус:
+                        <?= htmlspecialchars($poll['PART_STATUS']) ?>
+                    </p>
+
+                    <h3>Мои ответы</h3>
+
+                    <?php
+
+                    $sql = "SELECT questions.QST_TEXT,
+                                   answer_options.OPT_TEXT
+                            FROM user_answers
+                            JOIN answer_options
+                            ON user_answers.ANS_OPT_ID = answer_options.OPT_ID
+                            JOIN questions
+                            ON answer_options.OPT_QST_ID = questions.QST_ID
+                            WHERE user_answers.ANS_USER_ID = ?
+                            AND questions.QST_POLL_ID = ?
+                            ORDER BY questions.QST_ORDER";
+
+                    $stmt = $pdo->prepare($sql);
+
+                    $stmt->execute([
+                        $_SESSION['user_id'],
+                        $poll['POLL_ID']
+                    ]);
+
+                    $answers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    ?>
+
+                    <?php if (count($answers) > 0): ?>
+
+                        <?php foreach ($answers as $answer): ?>
+
+                            <p>
+                                <strong>
+                                    <?= htmlspecialchars($answer['QST_TEXT']) ?>
+                                </strong>
+                                <br>
+
+                                Ваш ответ:
+                                <?= htmlspecialchars($answer['OPT_TEXT']) ?>
+                            </p>
+
+                        <?php endforeach; ?>
+
+                    <?php else: ?>
+
+                        <p>
+                            Ответы не найдены.
+                        </p>
+
+                    <?php endif; ?>
 
                 </div>
 
@@ -88,7 +153,11 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php else: ?>
 
             <div class="teacher-card">
-                <p>Вы пока не проходили опросы.</p>
+
+                <p>
+                    Вы пока не проходили опросы.
+                </p>
+
             </div>
 
         <?php endif; ?>
@@ -100,7 +169,9 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </main>
 
 <footer>
+
 © 2026 Московский университет им. С.Ю. Витте
+
 </footer>
 
 </body>
