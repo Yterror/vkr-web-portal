@@ -9,28 +9,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 1) {
     exit;
 }
 
-$sql = "SELECT COUNT(*) FROM users";
-$stmt = $pdo->query($sql);
-$users_count = $stmt->fetchColumn();
-
-$sql = "SELECT COUNT(*) FROM polls";
-$stmt = $pdo->query($sql);
-$polls_count = $stmt->fetchColumn();
-
-$sql = "SELECT USER_ID, USER_FULL_NAME, USER_EMAIL, USER_ROLE_ID
-        FROM users
-        ORDER BY USER_ID";
-
-$stmt = $pdo->query($sql);
-$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$sql = "SELECT POLL_ID, POLL_TITLE, POLL_STATUS
-        FROM polls
-        ORDER BY POLL_ID DESC";
-
-$stmt = $pdo->query($sql);
-$polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +20,12 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Панель администратора</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -68,7 +52,6 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <li><a href="index.php">Главная</a></li>
                 <li><a href="polls.php">Опросы</a></li>
-                <li><a href="about.php">О нас</a></li>
 
             </ul>
 
@@ -84,10 +67,23 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="container">
 
+        <div class="breadcrumbs">
+
+            <a href="index.php">Главная</a>
+
+            <span>→</span>
+
+            <span>Панель администратора</span>
+
+        </div>
+
         <h1>Панель администратора</h1>
 
         <p class="panel-description">
-            Добро пожаловать, <?= htmlspecialchars($_SESSION['user_name']) ?>!
+
+            Добро пожаловать,
+            <?= htmlspecialchars($_SESSION['user_name']) ?>!
+
         </p>
 
         <div class="teacher-grid">
@@ -97,9 +93,12 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <h2>Пользователи</h2>
 
                 <p>
-                    Всего пользователей:
-                    <?= $users_count ?>
+                    Просмотр зарегистрированных пользователей.
                 </p>
+
+                <a href="admin-users.php" class="btn">
+                    Открыть
+                </a>
 
             </div>
 
@@ -108,45 +107,42 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <h2>Опросы</h2>
 
                 <p>
-                    Всего опросов:
-                    <?= $polls_count ?>
+                    Просмотр всех опросов.
                 </p>
+
+                <a href="admin-polls.php" class="btn">
+                    Открыть
+                </a>
 
             </div>
 
-        </div>
+            <div class="teacher-card">
 
-        <div class="teacher-card" style="margin-top:30px;">
-
-            <h2>Пользователи</h2>
-
-            <?php foreach ($users as $user): ?>
+                <h2>Результаты</h2>
 
                 <p>
-                    <?= htmlspecialchars($user['USER_FULL_NAME']) ?>
-                    —
-                    <?= htmlspecialchars($user['USER_EMAIL']) ?>
-                    —
-                    Роль: <?= $user['USER_ROLE_ID'] ?>
+                    Просмотр результатов опросов.
                 </p>
 
-            <?php endforeach; ?>
+                <a href="admin-results.php" class="btn">
+                    Открыть
+                </a>
 
-        </div>
+            </div>
 
-        <div class="teacher-card" style="margin-top:30px;">
+            <div class="teacher-card">
 
-            <h2>Опросы</h2>
-
-            <?php foreach ($polls as $poll): ?>
+                <h2>Категории</h2>
 
                 <p>
-                    <?= htmlspecialchars($poll['POLL_TITLE']) ?>
-                    —
-                    <?= htmlspecialchars($poll['POLL_STATUS']) ?>
+                    Просмотр категорий опросов.
                 </p>
 
-            <?php endforeach; ?>
+                <a href="admin-categories.php" class="btn">
+                    Открыть
+                </a>
+
+            </div>
 
         </div>
 

@@ -22,25 +22,33 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html lang="ru">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Категории</title>
+
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
 
 <header>
+
     <div class="container">
 
         <div class="logo">
+
             <a href="index.php">
                 <span>МУИВ</span>
                 <small>Web-портал опросов</small>
             </a>
+
         </div>
 
     </div>
+
 </header>
 
 <main>
@@ -48,6 +56,20 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <section class="teacher-panel">
 
     <div class="container">
+
+        <div class="breadcrumbs">
+
+            <a href="index.php">Главная</a>
+
+            <span>→</span>
+
+            <a href="admin.php">Панель администратора</a>
+
+            <span>→</span>
+
+            <span>Категории</span>
+
+        </div>
 
         <h1>Категории</h1>
 
@@ -80,8 +102,11 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </main>
 
 <footer>
+
     © 2026 Московский университет им. С.Ю. Витте
+
 </footer>
 
 </body>
+
 </html>

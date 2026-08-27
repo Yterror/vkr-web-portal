@@ -22,25 +22,33 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html lang="ru">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Пользователи</title>
+
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
 
 <header>
+
     <div class="container">
 
         <div class="logo">
+
             <a href="index.php">
                 <span>МУИВ</span>
                 <small>Web-портал опросов</small>
             </a>
+
         </div>
 
     </div>
+
 </header>
 
 <main>
@@ -49,6 +57,20 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="container">
 
+        <div class="breadcrumbs">
+
+            <a href="index.php">Главная</a>
+
+            <span>→</span>
+
+            <a href="admin.php">Панель администратора</a>
+
+            <span>→</span>
+
+            <span>Пользователи</span>
+
+        </div>
+
         <h1>Пользователи</h1>
 
         <div class="teacher-card">
@@ -56,11 +78,17 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($users as $user): ?>
 
                 <p>
+
                     <?= htmlspecialchars($user['USER_FULL_NAME']) ?>
+
                     —
+
                     <?= htmlspecialchars($user['USER_EMAIL']) ?>
+
                     —
+
                     Роль: <?= $user['USER_ROLE_ID'] ?>
+
                 </p>
 
             <?php endforeach; ?>
@@ -80,8 +108,11 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </main>
 
 <footer>
+
     © 2026 Московский университет им. С.Ю. Витте
+
 </footer>
 
 </body>
+
 </html>
