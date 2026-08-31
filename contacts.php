@@ -16,9 +16,12 @@ session_start();
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -33,8 +36,11 @@ session_start();
         <div class="logo">
 
             <a href="index.php">
+
                 <span>МУИВ</span>
+
                 <small>Web-портал опросов</small>
+
             </a>
 
         </div>
@@ -43,7 +49,9 @@ session_start();
 
             <ul class="menu">
 
-                <li><a href="index.php">Главная</a></li>
+                <li>
+                    <a href="index.php">Главная</a>
+                </li>
 
             </ul>
 
@@ -57,26 +65,59 @@ session_start();
 
 <section class="about">
 
-    <h1>Контакты</h1>
+    <div class="container">
 
-    <p>
-        По вопросам работы Web-портала пользователи могут
-        обратиться в университет.
-    </p>
+        <div class="breadcrumbs">
 
-    <h2>Контактная информация</h2>
+            <a href="index.php">Главная</a>
 
-    <p>
-        Московский университет имени С.Ю. Витте
-    </p>
+            <span>→</span>
 
-    <p>
-        Адрес: Москва, 2-й Кожуховский проезд, дом 12, строение 1.
-    </p>
+            <span>Контакты</span>
 
-    <p>
-        Электронная почта: info@muiv.ru
-    </p>
+        </div>
+
+        <h1>Контакты</h1>
+
+        <p>
+            По вопросам работы Web-портала, проведения опросов
+            и использования отдельных функций системы пользователи
+            могут обратиться в университет.
+        </p>
+
+        <h2>Контактная информация</h2>
+
+        <p>
+            Московский университет имени С.Ю. Витте
+        </p>
+
+        <p>
+            Адрес: Москва, 2-й Кожуховский проезд,
+            дом 12, строение 1.
+        </p>
+
+        <p>
+            Электронная почта: info@muiv.ru
+        </p>
+
+        <h2>По вопросам работы Web-портала</h2>
+
+        <p>
+            При возникновении вопросов, связанных с регистрацией,
+            прохождением опросов или работой учетной записи,
+            рекомендуется обратиться по указанному адресу электронной почты.
+        </p>
+
+        <h2>Обращения пользователей</h2>
+
+        <p>
+            В обращении рекомендуется указать краткое описание возникшей
+            проблемы и раздел Web-портала, при работе с которым
+            возникли затруднения. Это позволит быстрее определить
+            причину проблемы и предоставить необходимую информацию.
+        </p>
+
+    </div>
 
 </section>
 
@@ -84,7 +125,7 @@ session_start();
 
 <footer>
 
-© 2026 Московский университет им. С.Ю. Витте
+    © 2026 Московский университет им. С.Ю. Витте
 
 </footer>
 
