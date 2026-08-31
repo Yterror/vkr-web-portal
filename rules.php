@@ -10,17 +10,24 @@ session_start();
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Правила проведения опросов</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet"
+          href="css/style.css">
 
 </head>
 
@@ -33,8 +40,11 @@ session_start();
         <div class="logo">
 
             <a href="index.php">
+
                 <span>МУИВ</span>
+
                 <small>Web-портал опросов</small>
+
             </a>
 
         </div>
@@ -43,8 +53,10 @@ session_start();
 
             <ul class="menu">
 
-                <li><a href="index.php">Главная</a></li>
-                
+                <li>
+                    <a href="index.php">Главная</a>
+                </li>
+
             </ul>
 
         </nav>
@@ -57,26 +69,63 @@ session_start();
 
 <section class="about">
 
-    <h1>Правила проведения опросов</h1>
+    <div class="container">
 
-    <p>
-        Опросы проводятся с целью получения обратной связи
-        и аналитической информации от пользователей Web-портала.
-    </p>
+        <div class="breadcrumbs">
 
-    <h2>Основные правила</h2>
+            <a href="index.php">Главная</a>
 
-    <ul>
+            <span>→</span>
 
-        <li>Один пользователь может принять участие в каждом опросе один раз.</li>
+            <span>Правила</span>
 
-        <li>Ответы должны соответствовать содержанию задаваемых вопросов.</li>
+        </div>
 
-        <li>Не допускается передача учетных данных другим пользователям.</li>
+        <h1>Правила проведения опросов</h1>
 
-        <li>Результаты используются для анализа и повышения качества работы.</li>
+        <p>
+            Опросы проводятся с целью получения обратной связи,
+            аналитической информации и оценки качества работы
+            Web-портала.
+        </p>
 
-    </ul>
+        <h2>Основные правила</h2>
+
+        <p>
+            Для обеспечения корректного проведения опросов
+            пользователям необходимо соблюдать установленные правила.
+        </p>
+
+        <ul>
+
+            <li>
+                Один пользователь может принять участие
+                в каждом опросе только один раз.
+            </li>
+
+            <li>
+                Перед отправкой ответа необходимо внимательно
+                ознакомиться с содержанием каждого вопроса.
+            </li>
+
+            <li>
+                Не допускается передача учетных данных
+                другим пользователям.
+            </li>
+
+            <li>
+                Ответы пользователей сохраняются в системе
+                и используются для формирования результатов опроса.
+            </li>
+
+            <li>
+                Результаты опросов используются для анализа
+                и повышения качества работы Web-портала.
+            </li>
+
+        </ul>
+
+    </div>
 
 </section>
 
@@ -84,7 +133,7 @@ session_start();
 
 <footer>
 
-© 2026 Московский университет им. С.Ю. Витте
+    © 2026 Московский университет им. С.Ю. Витте
 
 </footer>
 
