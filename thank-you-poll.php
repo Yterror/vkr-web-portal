@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -7,7 +13,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Спасибо за прохождение</title>
+    <title>Опрос завершён</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -56,6 +62,10 @@
                     <a href="about.php">О нас</a>
                 </li>
 
+                <li>
+                    <a href="feedback.php">Обратная связь</a>
+                </li>
+
             </ul>
 
         </nav>
@@ -90,15 +100,31 @@
 
         <p class="poll-description">
 
-            Ваши ответы успешно отправлены.
+            Ваши ответы успешно отправлены и сохранены в системе.
 
-            Благодарим Вас за участие в оценке качества образовательного процесса.
+            Благодарим Вас за участие в оценке качества
+            образовательного процесса.
 
         </p>
 
-        <a href="index.php" class="btn">
-            Вернуться на главную
-        </a>
+        <p class="poll-description">
+
+            Полученные ответы используются для анализа результатов
+            и дальнейшего совершенствования образовательного процесса.
+
+        </p>
+
+        <div>
+
+            <a href="polls.php" class="btn">
+                Вернуться к опросам
+            </a>
+
+            <a href="index.php" class="btn">
+                На главную
+            </a>
+
+        </div>
 
     </div>
 
