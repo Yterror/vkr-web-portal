@@ -38,7 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Файлы</title>
 
@@ -53,10 +57,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
 
         <div class="logo">
+
             <a href="index.php">
+
                 <span>МУИВ</span>
+
                 <small>Web-портал опросов</small>
+
             </a>
+
         </div>
 
     </div>
@@ -69,19 +78,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="container">
 
+        <div class="breadcrumbs">
+
+            <a href="index.php">
+                Главная
+            </a>
+
+            <span>→</span>
+
+            <a href="teacher.php">
+                Личный кабинет преподавателя
+            </a>
+
+            <span>→</span>
+
+            <span>
+                Файлы
+            </span>
+
+        </div>
+
         <div class="create-poll-box">
 
-            <h1>Файлы</h1>
+            <h1>
+                Файлы
+            </h1>
+
+            <p class="poll-description">
+
+                В данном разделе преподаватель может загружать
+                необходимые информационные материалы на сервер.
+
+            </p>
 
             <?php if ($message != ''): ?>
 
                 <p style="text-align:center; margin-bottom:20px;">
+
                     <?= htmlspecialchars($message) ?>
+
                 </p>
 
             <?php endif; ?>
 
-            <form method="POST" enctype="multipart/form-data">
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
 
                 <label>
                     Выберите файл
@@ -93,7 +136,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     required
                 >
 
-                <button type="submit" class="btn">
+                <button
+                    type="submit"
+                    class="btn"
+                >
                     Загрузить файл
                 </button>
 
@@ -109,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <footer>
 
-© 2026 Московский университет им. С.Ю. Витте
+    © 2026 Московский университет им. С.Ю. Витте
 
 </footer>
 
