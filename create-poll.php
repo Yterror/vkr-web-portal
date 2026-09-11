@@ -19,7 +19,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
 
-    if ($title != '' && $category != '' && $start_date != '' && $end_date != '') {
+    $question1 = trim($_POST['question1']);
+    $question1_type = $_POST['question1_type'];
+
+    $question2 = trim($_POST['question2']);
+    $question2_type = $_POST['question2_type'];
+
+    $question3 = trim($_POST['question3']);
+    $question3_type = $_POST['question3_type'];
+
+    if (
+        $title != '' &&
+        $category != '' &&
+        $start_date != '' &&
+        $end_date != '' &&
+        $question1 != '' &&
+        $question2 != '' &&
+        $question3 != ''
+    ) {
 
         $sql = "INSERT INTO polls
                 (POLL_TITLE, POLL_DESCRIPTION, POLL_START_DATE,
@@ -38,12 +55,126 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id']
         ]);
 
+        $poll_id = $pdo->lastInsertId();
+
+
+        // Вопрос 1
+
+        $sql = "INSERT INTO questions
+                (QST_POLL_ID, QST_TEXT, QST_TYPE, QST_ORDER)
+                VALUES (?, ?, ?, ?)";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            $poll_id,
+            $question1,
+            $question1_type,
+            1
+        ]);
+
+        $question1_id = $pdo->lastInsertId();
+
+
+        // Варианты ответа вопроса 1
+
+        foreach ($_POST['question1_answers'] as $answer) {
+
+            $answer = trim($answer);
+
+            if ($answer != '') {
+
+                $sql = "INSERT INTO answer_options
+                        (OPT_QST_ID, OPT_TEXT)
+                        VALUES (?, ?)";
+
+                $stmt = $pdo->prepare($sql);
+
+                $stmt->execute([
+                    $question1_id,
+                    $answer
+                ]);
+            }
+        }
+
+
+        // Вопрос 2
+
+        $sql = "INSERT INTO questions
+                (QST_POLL_ID, QST_TEXT, QST_TYPE, QST_ORDER)
+                VALUES (?, ?, ?, ?)";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            $poll_id,
+            $question2,
+            $question2_type,
+            2
+        ]);
+
+        $question2_id = $pdo->lastInsertId();
+
+
+        // Варианты ответа вопроса 2
+
+        foreach ($_POST['question2_answers'] as $answer) {
+
+            $answer = trim($answer);
+
+            if ($answer != '') {
+
+                $sql = "INSERT INTO answer_options
+                        (OPT_QST_ID, OPT_TEXT)
+                        VALUES (?, ?)";
+
+                $stmt = $pdo->prepare($sql);
+
+                $stmt->execute([
+                    $question2_id,
+                    $answer
+                ]);
+            }
+        }
+
+
+        // Вопрос 3
+
+        $sql = "INSERT INTO questions
+                (QST_POLL_ID, QST_TEXT, QST_TYPE, QST_ORDER)
+                VALUES (?, ?, ?, ?)";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            $poll_id,
+            $question3,
+            $question3_type,
+            3
+        ]);
+
+
+        // Создание уведомлений для студентов
+
+        $sql = "INSERT INTO notifications
+                (NOT_USER_ID, NOT_TEXT, NOT_DATE, NOT_STATUS)
+                SELECT USER_ID, ?, NOW(), ?
+                FROM users
+                WHERE USER_ROLE_ID = 3";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            'Создан новый опрос: ' . $title,
+            'Новое'
+        ]);
+
+
         $message = 'Опрос успешно создан.';
 
     } else {
 
         $message = 'Заполните все обязательные поля.';
-
     }
 }
 
@@ -55,14 +186,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
 
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Создание опроса</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -77,8 +213,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="logo">
 
             <a href="index.php">
+
                 <span>МУИВ</span>
+
                 <small>Web-портал опросов</small>
+
             </a>
 
         </div>
@@ -87,9 +226,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <ul class="menu">
 
-                <li><a href="index.php">Главная</a></li>
-                <li><a href="polls.php">Опросы</a></li>
-                <li><a href="about.php">О нас</a></li>
+                <li>
+                    <a href="index.php">Главная</a>
+                </li>
+
+                <li>
+                    <a href="polls.php">Опросы</a>
+                </li>
+
+                <li>
+                    <a href="about.php">О нас</a>
+                </li>
 
             </ul>
 
@@ -99,11 +246,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </header>
 
+
 <main>
 
 <section class="create-poll-page">
 
     <div class="container">
+
+        <div class="breadcrumbs">
+
+            <a href="index.php">Главная</a>
+
+            <span>→</span>
+
+            <a href="teacher.php">Личный кабинет</a>
+
+            <span>→</span>
+
+            <span>Создание опроса</span>
+
+        </div>
+
 
         <div class="create-poll-box">
 
@@ -112,15 +275,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h1>Создание нового опроса</h1>
 
                 <p>
-                    Заполните основные сведения для проведения опроса.
+                    Заполните основные сведения и добавьте вопросы
+                    для проведения опроса.
                 </p>
 
             </div>
 
+
             <?php if ($message != ''): ?>
 
                 <p style="text-align:center; margin-bottom:20px;">
+
                     <?= htmlspecialchars($message) ?>
+
                 </p>
 
             <?php endif; ?>
@@ -128,9 +295,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <form method="POST">
 
+
                 <div class="form-section">
 
                     <h2>Основная информация</h2>
+
 
                     <label for="poll-title">
                         Название опроса
@@ -144,6 +313,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         required
                     >
 
+
                     <label for="poll-description">
                         Описание
                     </label>
@@ -153,6 +323,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         name="poll_description"
                         placeholder="Введите описание опроса"
                     ></textarea>
+
 
                     <label for="poll-category">
                         Категория
@@ -193,6 +364,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <h2>Срок проведения</h2>
 
+
                     <div class="date-fields">
 
                         <div>
@@ -231,6 +403,227 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
 
+                <div class="form-section">
+
+                    <h2>Вопрос 1</h2>
+
+
+                    <label for="question1">
+                        Текст вопроса
+                    </label>
+
+                    <input
+                        type="text"
+                        id="question1"
+                        name="question1"
+                        placeholder="Введите текст вопроса"
+                        required
+                    >
+
+
+                    <label>
+                        Тип вопроса
+                    </label>
+
+                    <select name="question1_type">
+
+                        <option value="Один вариант ответа">
+                            Один вариант ответа
+                        </option>
+
+                        <option value="Несколько вариантов ответа">
+                            Несколько вариантов ответа
+                        </option>
+
+                        <option value="Текстовый ответ">
+                            Текстовый ответ
+                        </option>
+
+                    </select>
+
+
+                    <label>
+                        Варианты ответа
+                    </label>
+
+
+                    <div class="answer-input">
+
+                        <input
+                            type="text"
+                            name="question1_answers[]"
+                            placeholder="Вариант ответа 1"
+                        >
+
+                    </div>
+
+
+                    <div class="answer-input">
+
+                        <input
+                            type="text"
+                            name="question1_answers[]"
+                            placeholder="Вариант ответа 2"
+                        >
+
+                    </div>
+
+
+                    <div class="answer-input">
+
+                        <input
+                            type="text"
+                            name="question1_answers[]"
+                            placeholder="Вариант ответа 3"
+                        >
+
+                    </div>
+
+
+                    <div class="answer-input">
+
+                        <input
+                            type="text"
+                            name="question1_answers[]"
+                            placeholder="Вариант ответа 4"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-section">
+
+                    <h2>Вопрос 2</h2>
+
+
+                    <label for="question2">
+                        Текст вопроса
+                    </label>
+
+                    <input
+                        type="text"
+                        id="question2"
+                        name="question2"
+                        placeholder="Введите текст вопроса"
+                        required
+                    >
+
+
+                    <label>
+                        Тип вопроса
+                    </label>
+
+                    <select name="question2_type">
+
+                        <option value="Один вариант ответа">
+                            Один вариант ответа
+                        </option>
+
+                        <option value="Несколько вариантов ответа">
+                            Несколько вариантов ответа
+                        </option>
+
+                        <option value="Текстовый ответ">
+                            Текстовый ответ
+                        </option>
+
+                    </select>
+
+
+                    <label>
+                        Варианты ответа
+                    </label>
+
+
+                    <div class="answer-input">
+
+                        <input
+                            type="text"
+                            name="question2_answers[]"
+                            placeholder="Вариант ответа 1"
+                        >
+
+                    </div>
+
+
+                    <div class="answer-input">
+
+                        <input
+                            type="text"
+                            name="question2_answers[]"
+                            placeholder="Вариант ответа 2"
+                        >
+
+                    </div>
+
+
+                    <div class="answer-input">
+
+                        <input
+                            type="text"
+                            name="question2_answers[]"
+                            placeholder="Вариант ответа 3"
+                        >
+
+                    </div>
+
+
+                    <div class="answer-input">
+
+                        <input
+                            type="text"
+                            name="question2_answers[]"
+                            placeholder="Вариант ответа 4"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-section">
+
+                    <h2>Вопрос 3</h2>
+
+
+                    <label for="question3">
+                        Текст вопроса
+                    </label>
+
+                    <input
+                        type="text"
+                        id="question3"
+                        name="question3"
+                        placeholder="Введите текст вопроса"
+                        required
+                    >
+
+
+                    <label>
+                        Тип вопроса
+                    </label>
+
+                    <select name="question3_type">
+
+                        <option value="Текстовый ответ">
+                            Текстовый ответ
+                        </option>
+
+                        <option value="Один вариант ответа">
+                            Один вариант ответа
+                        </option>
+
+                        <option value="Несколько вариантов ответа">
+                            Несколько вариантов ответа
+                        </option>
+
+                    </select>
+
+                </div>
+
+
                 <div class="create-poll-actions">
 
                     <a
@@ -260,10 +653,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </main>
 
+
 <footer>
-
-© 2026 Московский университет им. С.Ю. Витте
-
+    © 2026 Московский университет им. С.Ю. Витте
+    <br>
+    Разработчик: Иван Ковалев
 </footer>
 
 </body>
