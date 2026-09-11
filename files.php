@@ -15,17 +15,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $file_name = $_FILES['file']['name'];
         $file_tmp = $_FILES['file']['tmp_name'];
+        $file_size = $_FILES['file']['size'];
 
-        $file_path = 'uploads/' . basename($file_name);
+        $file_extension = strtolower(
+            pathinfo($file_name, PATHINFO_EXTENSION)
+        );
 
-        if (move_uploaded_file($file_tmp, $file_path)) {
+        $allowed_extensions = [
+            'pdf',
+            'doc',
+            'docx',
+            'xls',
+            'xlsx',
+            'ppt',
+            'pptx',
+            'txt'
+        ];
 
-            $message = 'Файл успешно загружен.';
+        if (!in_array($file_extension, $allowed_extensions)) {
+
+            $message = 'Недопустимый тип файла.';
+
+        } elseif ($file_size > 10 * 1024 * 1024) {
+
+            $message = 'Размер файла не должен превышать 10 МБ.';
 
         } else {
 
-            $message = 'Ошибка загрузки файла.';
+            $new_file_name = time() . '_' . basename($file_name);
 
+            $file_path = 'uploads/' . $new_file_name;
+
+            if (move_uploaded_file($file_tmp, $file_path)) {
+
+                $message = 'Файл успешно загружен.';
+
+            } else {
+
+                $message = 'Ошибка загрузки файла.';
+
+            }
         }
     }
 }
@@ -154,11 +183,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </main>
 
 <footer>
-
     © 2026 Московский университет им. С.Ю. Витте
-
+    <br>
+    Разработчик: Иван Ковалев
 </footer>
 
 </body>
 
 </html>
+
