@@ -13,6 +13,24 @@ $poll_id = $_GET['id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    // Проверяем, проходил ли пользователь этот опрос раньше
+    $sql = "SELECT * FROM poll_participants
+            WHERE PART_USER_ID = ?
+            AND PART_POLL_ID = ?";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        $_SESSION['user_id'],
+        $poll_id
+    ]);
+
+    $already_completed = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($already_completed) {
+        die('Вы уже проходили этот опрос.');
+    }
+
     $answers = $_POST['answers'] ?? [];
 
     foreach ($answers as $answer_id) {
@@ -256,11 +274,12 @@ $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </main>
 
 <footer>
-
     © 2026 Московский университет им. С.Ю. Витте
-
+    <br>
+    Разработчик: Иван Ковалев
 </footer>
 
 </body>
 
 </html>
+```
