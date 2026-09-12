@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: sql111.infinityfree.com
--- Время создания: Авг 21 2026 г., 21:18
--- Версия сервера: 11.4.12-MariaDB
+-- Время создания: Сен 12 2026 г., 19:00
+-- Версия сервера: 11.4.13-MariaDB
 -- Версия PHP: 7.2.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
