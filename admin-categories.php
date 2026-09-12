@@ -9,6 +9,39 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 1) {
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_POST['edit_category'])) {
+
+        $sql = "UPDATE categories
+                SET CAT_NAME = ?, CAT_DESCRIPTION = ?
+                WHERE CAT_ID = ?";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            $_POST['cat_name'],
+            $_POST['cat_description'],
+            $_POST['cat_id']
+        ]);
+    }
+
+    if (isset($_POST['delete_category'])) {
+
+        $sql = "DELETE FROM categories
+                WHERE CAT_ID = ?";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            $_POST['cat_id']
+        ]);
+    }
+
+    header('Location: admin-categories.php');
+    exit;
+}
+
 $sql = "SELECT CAT_ID, CAT_NAME, CAT_DESCRIPTION
         FROM categories
         ORDER BY CAT_ID";
@@ -85,6 +118,35 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?= htmlspecialchars($category['CAT_DESCRIPTION']) ?>
                 </p>
 
+                <form method="post">
+
+                    <input type="hidden"
+                           name="cat_id"
+                           value="<?= $category['CAT_ID'] ?>">
+
+                    <input type="text"
+                           name="cat_name"
+                           value="<?= htmlspecialchars($category['CAT_NAME']) ?>"
+                           required>
+
+                    <textarea name="cat_description"
+                              required><?= htmlspecialchars($category['CAT_DESCRIPTION']) ?></textarea>
+
+                    <button type="submit"
+                            name="edit_category"
+                            class="btn">
+                        Сохранить изменения
+                    </button>
+
+                    <button type="submit"
+                            name="delete_category"
+                            class="btn"
+                            onclick="return confirm('Удалить эту категорию?');">
+                        Удалить
+                    </button>
+
+                </form>
+
             </div>
 
             <br>
@@ -102,9 +164,9 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </main>
 
 <footer>
-
     © 2026 Московский университет им. С.Ю. Витте
-
+    <br>
+    Разработчик: Иван Ковалев
 </footer>
 
 </body>
