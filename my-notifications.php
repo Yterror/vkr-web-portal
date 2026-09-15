@@ -57,6 +57,26 @@ $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="container">
 
+        <div class="breadcrumbs">
+
+            <a href="index.php">
+                Главная
+            </a>
+
+            <span>→</span>
+
+            <a href="profile.php">
+                Личный кабинет
+            </a>
+
+            <span>→</span>
+
+            <span>
+                Уведомления
+            </span>
+
+        </div>
+
         <h1>Уведомления</h1>
 
         <?php if (count($notifications) > 0): ?>
@@ -94,7 +114,9 @@ $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </main>
 
 <footer>
-© 2026 Московский университет им. С.Ю. Витте
+    © 2026 Московский университет им. С.Ю. Витте
+    <br>
+    Разработчик: Иван Ковалев
 </footer>
 
 </body>

@@ -16,9 +16,12 @@ session_start();
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -33,8 +36,11 @@ session_start();
         <div class="logo">
 
             <a href="index.php">
+
                 <span>МУИВ</span>
+
                 <small>Web-портал опросов</small>
+
             </a>
 
         </div>
@@ -44,7 +50,9 @@ session_start();
             <ul class="menu">
 
                 <li>
-                    <a href="index.php">Главная</a>
+                    <a href="index.php">
+                        Главная
+                    </a>
                 </li>
 
             </ul>
@@ -63,24 +71,34 @@ session_start();
 
         <div class="breadcrumbs">
 
-            <a href="index.php">Главная</a>
+            <a href="index.php">
+                Главная
+            </a>
 
             <span>→</span>
 
-            <span>Новости</span>
+            <span>
+                Новости
+            </span>
 
         </div>
 
-        <h1>Новости</h1>
+        <h1>
+            Новости
+        </h1>
 
-        <h2>Развитие Web-портала</h2>
+        <h2>
+            Развитие Web-портала
+        </h2>
 
         <p>
             Web-портал развивается для повышения удобства проведения
             опросов, сбора обратной связи и анализа полученных результатов.
         </p>
 
-        <h2>Новые возможности</h2>
+        <h2>
+            Новые возможности
+        </h2>
 
         <p>
             В системе реализованы создание и прохождение опросов,
@@ -88,11 +106,24 @@ session_start();
             с пользовательскими данными.
         </p>
 
-        <h2>Информационные материалы</h2>
+        <h2>
+            Информационные материалы
+        </h2>
 
         <p>
             Раздел предназначен для размещения информации об обновлениях
             Web-портала, новых возможностях системы и изменениях в работе сервиса.
+        </p>
+
+        <h2>
+            Дальнейшее развитие
+        </h2>
+
+        <p>
+            В дальнейшем функциональность Web-портала может расширяться
+            с учетом потребностей пользователей и задач университета.
+            Планируется дальнейшее совершенствование интерфейса,
+            работы с результатами опросов и информационными материалами.
         </p>
 
     </div>
@@ -102,9 +133,9 @@ session_start();
 </main>
 
 <footer>
-
-© 2026 Московский университет им. С.Ю. Витте
-
+    © 2026 Московский университет им. С.Ю. Витте
+    <br>
+    Разработчик: Иван Ковалев
 </footer>
 
 </body>

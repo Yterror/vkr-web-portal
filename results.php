@@ -54,11 +54,15 @@ $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet"
+          href="css/style.css">
 
 </head>
 
@@ -84,11 +88,17 @@ $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <ul class="menu">
 
-                <li><a href="index.php">Главная</a></li>
+                <li>
+                    <a href="index.php">Главная</a>
+                </li>
 
-                <li><a href="polls.php">Опросы</a></li>
+                <li>
+                    <a href="polls.php">Опросы</a>
+                </li>
 
-                <li><a href="about.php">О нас</a></li>
+                <li>
+                    <a href="about.php">О нас</a>
+                </li>
 
             </ul>
 
@@ -104,43 +114,88 @@ $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="container">
 
+        <div class="breadcrumbs">
+
+            <a href="index.php">Главная</a>
+
+            <span>→</span>
+
+            <?php if ($_SESSION['user_role'] == 1): ?>
+
+                <a href="admin.php">Панель администратора</a>
+
+                <span>→</span>
+
+                <a href="admin-results.php">Результаты</a>
+
+            <?php else: ?>
+
+                <a href="teacher.php">Панель преподавателя</a>
+
+                <span>→</span>
+
+                <span>Результаты опроса</span>
+
+            <?php endif; ?>
+
+            <span>→</span>
+
+            <span><?= htmlspecialchars($poll['POLL_TITLE']) ?></span>
+
+        </div>
+
         <div class="results-card">
 
             <h1>Результаты опроса</h1>
 
             <p>
                 Опрос:
-                <strong><?= htmlspecialchars($poll['POLL_TITLE']) ?></strong>
+                <strong>
+                    <?= htmlspecialchars($poll['POLL_TITLE']) ?>
+                </strong>
             </p>
 
             <p>
                 Всего участников:
-                <strong><?= $total_users ?></strong>
+                <strong>
+                    <?= $total_users ?>
+                </strong>
+            </p>
+
+            <p>
+                Всего вопросов:
+                <strong>
+                    <?= count($questions) ?>
+                </strong>
             </p>
 
             <hr>
 
-
             <?php foreach ($questions as $question): ?>
 
                 <h3>
-                    <?= htmlspecialchars($question['QST_ORDER']) ?>.
-                    <?= htmlspecialchars($question['QST_TEXT']) ?>
-                </h3>
 
+                    <?= htmlspecialchars($question['QST_ORDER']) ?>.
+
+                    <?= htmlspecialchars($question['QST_TEXT']) ?>
+
+                </h3>
 
                 <?php
 
-                $sql = "SELECT * FROM answer_options
+                $sql = "SELECT *
+                        FROM answer_options
                         WHERE OPT_QST_ID = ?";
 
                 $stmt = $pdo->prepare($sql);
-                $stmt->execute([$question['QST_ID']]);
+
+                $stmt->execute([
+                    $question['QST_ID']
+                ]);
 
                 $options = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 ?>
-
 
                 <?php foreach ($options as $option): ?>
 
@@ -151,7 +206,10 @@ $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             WHERE ANS_OPT_ID = ?";
 
                     $stmt = $pdo->prepare($sql);
-                    $stmt->execute([$option['OPT_ID']]);
+
+                    $stmt->execute([
+                        $option['OPT_ID']
+                    ]);
 
                     $count = $stmt->fetchColumn();
 
@@ -164,8 +222,11 @@ $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     ?>
 
                     <p>
+
                         <?= htmlspecialchars($option['OPT_TEXT']) ?>
+
                         — <?= $percent ?>%
+
                     </p>
 
                     <div class="progress">
@@ -181,21 +242,35 @@ $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <?php endforeach; ?>
 
-
             <br>
 
-            <a href="teacher.php" class="btn">
-                Вернуться к панели преподавателя
-            </a>
-            
-            <a href="export-results.php?id=<?= $poll_id ?>" class="btn">
+            <?php if ($_SESSION['user_role'] == 1): ?>
+
+                <a href="admin-results.php" class="btn">
+                    Вернуться к результатам
+                </a>
+
+            <?php else: ?>
+
+                <a href="teacher.php" class="btn">
+                    Вернуться к панели преподавателя
+                </a>
+
+            <?php endif; ?>
+
+            <a
+                href="export-results.php?id=<?= $poll_id ?>"
+                class="btn"
+            >
                 Скачать Excel
             </a>
-            
-            <a href="export-results-word.php?id=<?= $poll_id ?>" class="btn">
+
+            <a
+                href="export-results-word.php?id=<?= $poll_id ?>"
+                class="btn"
+            >
                 Скачать Word
             </a>
-            
 
         </div>
 
@@ -206,9 +281,9 @@ $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </main>
 
 <footer>
-
-© 2026 Московский университет им. С.Ю. Витте
-
+    © 2026 Московский университет им. С.Ю. Витте
+    <br>
+    Разработчик: Иван Ковалев
 </footer>
 
 </body>

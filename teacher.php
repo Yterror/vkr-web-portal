@@ -26,16 +26,24 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Панель преподавателя</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="css/style.css">
 
 </head>
 
@@ -61,9 +69,17 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <ul class="menu">
 
-                <li><a href="index.php">Главная</a></li>
-                <li><a href="polls.php">Опросы</a></li>
-                <li><a href="about.php">О нас</a></li>
+                <li>
+                    <a href="index.php">Главная</a>
+                </li>
+
+                <li>
+                    <a href="polls.php">Опросы</a>
+                </li>
+
+                <li>
+                    <a href="about.php">О нас</a>
+                </li>
 
             </ul>
 
@@ -79,17 +95,26 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="container">
 
+        <div class="breadcrumbs">
+
+            <a href="index.php">Главная</a>
+
+            <span>→</span>
+
+            <span>Панель преподавателя</span>
+
+        </div>
+
         <h1>Панель преподавателя</h1>
 
         <p class="panel-description">
 
-            Добро пожаловать, <?= htmlspecialchars($_SESSION['user_name']) ?>!
+            Добро пожаловать,
+            <?= htmlspecialchars($_SESSION['user_name']) ?>!
 
         </p>
 
-
         <div class="teacher-grid">
-
 
             <div class="teacher-card">
 
@@ -102,24 +127,23 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <a href="create-poll.php" class="btn">
                     Создать
                 </a>
-                
+
             </div>
-            
+
+
             <div class="teacher-card">
-                
+
                 <h2>Файлы</h2>
-                
+
                 <p>
-                    Pагрузка файлов на сервер.
+                    Загрузка файлов на сервер.
                 </p>
-                
-                
+
                 <a href="files.php" class="btn">
                     Открыть
                 </a>
+
             </div>
-            
-            
 
 
             <?php foreach ($polls as $poll): ?>
@@ -166,7 +190,6 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             </div>
 
-
         </div>
 
     </div>
@@ -176,9 +199,9 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </main>
 
 <footer>
-
-© 2026 Московский университет им. С.Ю. Витте
-
+    © 2026 Московский университет им. С.Ю. Витте
+    <br>
+    Разработчик: Иван Ковалев
 </footer>
 
 </body>

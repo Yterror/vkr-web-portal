@@ -23,7 +23,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_name'] = $user['USER_FULL_NAME'];
         $_SESSION['user_role'] = $user['USER_ROLE_ID'];
 
-        header('Location: index.php');
+        if ($user['USER_ROLE_ID'] == 1) {
+            header('Location: admin.php');
+        } elseif ($user['USER_ROLE_ID'] == 2) {
+            header('Location: teacher.php');
+        } else {
+            header('Location: polls.php');
+        }
+
         exit;
 
     } else {
@@ -42,6 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Вход в систему</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -66,9 +79,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <ul class="menu">
 
-                <li><a href="index.php">Главная</a></li>
-                <li><a href="polls.php">Опросы</a></li>
-                <li><a href="about.php">О нас</a></li>
+                <li>
+                    <a href="index.php">Главная</a>
+                </li>
+
+                <li>
+                    <a href="feedback.php">Обратная связь</a>
+                </li>
 
             </ul>
 
@@ -80,56 +97,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <main>
 
-    <div class="login-box">
+    <div class="container">
 
-        <h2>Вход в систему</h2>
+        <div class="breadcrumbs">
 
-        <?php if ($message !== ''): ?>
+            <a href="index.php">Главная</a>
 
-            <p style="text-align:center; margin-bottom:20px;">
-                <?= htmlspecialchars($message) ?>
-            </p>
+            <span>→</span>
 
-        <?php endif; ?>
+            <span>Вход в систему</span>
 
-        <form method="POST">
+        </div>
 
-            <label>Email</label>
+        <div class="login-box">
 
-            <input
-                type="email"
-                name="email"
-                placeholder="Введите email"
-                required
-            >
+            <h2>Вход в систему</h2>
 
-            <label>Пароль</label>
+            <?php if ($message !== ''): ?>
 
-            <input
-                type="password"
-                name="password"
-                placeholder="Введите пароль"
-                required
-            >
+                <p style="text-align:center; margin-bottom:20px;">
+                    <?= htmlspecialchars($message) ?>
+                </p>
 
-            <button class="btn" type="submit">
-                Войти
-            </button>
-            
-            <a href="register.php" class="btn">
-                Регистрация
-            </a>
+            <?php endif; ?>
 
-        </form>
+            <form method="POST">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Введите email"
+                    required
+                >
+
+                <label>Пароль</label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Введите пароль"
+                    required
+                >
+
+                <button class="btn" type="submit">
+                    Войти
+                </button>
+
+                <a href="register.php" class="btn">
+                    Регистрация
+                </a>
+
+            </form>
+
+        </div>
 
     </div>
 
 </main>
 
 <footer>
-
     © 2026 Московский университет им. С.Ю. Витте
-
+    <br>
+    Разработчик: Иван Ковалев
 </footer>
 
 </body>

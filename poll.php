@@ -33,19 +33,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $answers = $_POST['answers'] ?? [];
 
-    foreach ($answers as $answer_id) {
+   foreach ($answers as $answer) {
+
+    if (is_numeric($answer)) {
 
         $sql = "INSERT INTO user_answers
-                (ANS_USER_ID, ANS_OPT_ID)
-                VALUES (?, ?)";
+                (ANS_USER_ID, ANS_OPT_ID, ANS_TEXT)
+                VALUES (?, ?, ?)";
 
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
             $_SESSION['user_id'],
-            $answer_id
+            $answer,
+            null
+        ]);
+
+    } else {
+
+        $sql = "INSERT INTO user_answers
+                (ANS_USER_ID, ANS_OPT_ID, ANS_TEXT)
+                VALUES (?, ?, ?)";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            $_SESSION['user_id'],
+            null,
+            $answer
         ]);
     }
+}
 
     $sql = "INSERT INTO poll_participants
             (PART_USER_ID, PART_POLL_ID, PART_STATUS)
@@ -64,7 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $sql = "SELECT * FROM polls
-        WHERE POLL_ID = ?";
+        WHERE POLL_ID = ?
+        AND POLL_STATUS = 'Активен'";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$poll_id]);
@@ -282,4 +301,3 @@ $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </body>
 
 </html>
-```

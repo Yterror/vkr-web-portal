@@ -192,9 +192,9 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </main>
 
 <footer>
-
     © 2026 Московский университет им. С.Ю. Витте
-
+    <br>
+    Разработчик: Иван Ковалев
 </footer>
 
 </body>

@@ -36,14 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
 
-            /*
-             Проверяем, существует ли пользователь
-             с таким email.
-             */
-
             $check = $pdo->prepare(
-                "SELECT USER_ID 
-                 FROM users 
+                "SELECT USER_ID
+                 FROM users
                  WHERE USER_EMAIL = ?"
             );
 
@@ -56,15 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             } else {
 
-                /*
-                 Получаем роль "Студент"
-                 По умолчанию новый пользователь
-                 регистрируется как студент.
-                 */
-
                 $role = $pdo->prepare(
-                    "SELECT ROLE_ID 
-                     FROM roles 
+                    "SELECT ROLE_ID
+                     FROM roles
                      WHERE ROLE_NAME = 'Студент'
                      LIMIT 1"
                 );
@@ -80,13 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 } else {
 
-
                     $passwordHash = password_hash(
                         $password,
                         PASSWORD_DEFAULT
                     );
-
-                    /*Добавляем пользователя.*/
 
                     $insert = $pdo->prepare(
                         "INSERT INTO users
@@ -190,17 +176,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </header>
 
-
 <main>
 
     <div class="login-box">
+
+        <div class="breadcrumbs">
+
+            <a href="index.php">Главная</a>
+
+            <span>→</span>
+
+            <span>Регистрация</span>
+
+        </div>
 
         <h2>Регистрация</h2>
 
         <?php if ($message !== ''): ?>
 
             <div class="register-message <?= $messageType ?>">
+
                 <?= htmlspecialchars($message) ?>
+
             </div>
 
         <?php endif; ?>
@@ -286,11 +283,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </main>
 
-
 <footer>
-
     © 2026 Московский университет им. С.Ю. Витте
-
+    <br>
+    Разработчик: Иван Ковалев
 </footer>
 
 </body>

@@ -9,6 +9,42 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 1) {
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_POST['edit_user'])) {
+
+        $sql = "UPDATE users
+                SET USER_FULL_NAME = ?,
+                    USER_EMAIL = ?,
+                    USER_ROLE_ID = ?
+                WHERE USER_ID = ?";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            $_POST['user_full_name'],
+            $_POST['user_email'],
+            $_POST['user_role_id'],
+            $_POST['user_id']
+        ]);
+    }
+
+    if (isset($_POST['delete_user'])) {
+
+        $sql = "DELETE FROM users
+                WHERE USER_ID = ?";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            $_POST['user_id']
+        ]);
+    }
+
+    header('Location: admin-users.php');
+    exit;
+}
+
 $sql = "SELECT USER_ID, USER_FULL_NAME, USER_EMAIL, USER_ROLE_ID
         FROM users
         ORDER BY USER_ID";
@@ -73,29 +109,84 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <h1>Пользователи</h1>
 
-        <div class="teacher-card">
+        <?php foreach ($users as $user): ?>
 
-            <?php foreach ($users as $user): ?>
+            <div class="teacher-card">
 
                 <p>
-
-                    <?= htmlspecialchars($user['USER_FULL_NAME']) ?>
-
-                    —
-
-                    <?= htmlspecialchars($user['USER_EMAIL']) ?>
-
-                    —
-
-                    Роль: <?= $user['USER_ROLE_ID'] ?>
-
+                    <strong>ID:</strong>
+                    <?= $user['USER_ID'] ?>
                 </p>
 
-            <?php endforeach; ?>
+                <form method="post">
 
-        </div>
+                    <input type="hidden"
+                           name="user_id"
+                           value="<?= $user['USER_ID'] ?>">
 
-        <br>
+                    <label>
+                        ФИО:
+                    </label>
+
+                    <input type="text"
+                           name="user_full_name"
+                           value="<?= htmlspecialchars($user['USER_FULL_NAME']) ?>"
+                           required>
+
+                    <label>
+                        Email:
+                    </label>
+
+                    <input type="email"
+                           name="user_email"
+                           value="<?= htmlspecialchars($user['USER_EMAIL']) ?>"
+                           required>
+
+                    <label>
+                        Роль:
+                    </label>
+
+                    <select name="user_role_id">
+
+                        <option value="1"
+                            <?= $user['USER_ROLE_ID'] == 1 ? 'selected' : '' ?>>
+                            Администратор
+                        </option>
+
+                        <option value="2"
+                            <?= $user['USER_ROLE_ID'] == 2 ? 'selected' : '' ?>>
+                            Преподаватель
+                        </option>
+
+                        <option value="3"
+                            <?= $user['USER_ROLE_ID'] == 3 ? 'selected' : '' ?>>
+                            Студент
+                        </option>
+
+                    </select>
+
+                    <br><br>
+
+                    <button type="submit"
+                            name="edit_user"
+                            class="btn">
+                        Сохранить изменения
+                    </button>
+
+                    <button type="submit"
+                            name="delete_user"
+                            class="btn"
+                            onclick="return confirm('Удалить этого пользователя?');">
+                        Удалить
+                    </button>
+
+                </form>
+
+            </div>
+
+            <br>
+
+        <?php endforeach; ?>
 
         <a href="admin.php" class="btn">
             Назад
@@ -108,9 +199,9 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </main>
 
 <footer>
-
     © 2026 Московский университет им. С.Ю. Витте
-
+    <br>
+    Разработчик: Иван Ковалев
 </footer>
 
 </body>

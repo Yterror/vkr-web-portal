@@ -62,6 +62,12 @@ session_start();
             <li><a href="teacher.php">Панель преподавателя</a></li>
         
         <?php endif; ?>
+        
+        <?php if (isset($_SESSION['user_id']) && $_SESSION['user_role'] == 1): ?>
+
+            <li><a href="admin.php">Панель администратора</a></li>
+
+        <?php endif; ?>
 
     </ul>
 
@@ -103,9 +109,9 @@ session_start();
 </main>
 
 <footer>
-
-    © 2026 Московский университет им. С.Ю. Витте
-
+    2026 Московский университет им. С.Ю. Витте
+    <br>
+    Разработчик: Иван Ковалев
 </footer>
 
 <!-- Code injected by live-server -->

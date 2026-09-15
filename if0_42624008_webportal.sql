@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: sql111.infinityfree.com
--- Время создания: Авг 13 2026 г., 19:57
--- Версия сервера: 11.4.12-MariaDB
+-- Время создания: Сен 15 2026 г., 18:02
+-- Версия сервера: 11.4.13-MariaDB
 -- Версия PHP: 7.2.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -34,6 +34,28 @@ CREATE TABLE `answer_options` (
   `OPT_TEXT` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Дамп данных таблицы `answer_options`
+--
+
+INSERT INTO `answer_options` (`OPT_ID`, `OPT_QST_ID`, `OPT_TEXT`) VALUES
+(1, 1, 'тест'),
+(2, 1, 'тест'),
+(3, 2, 'тест'),
+(4, 2, 'тест'),
+(5, 4, 'тест1'),
+(6, 4, 'тест2'),
+(7, 4, 'тест3'),
+(8, 5, 'тест6'),
+(9, 5, 'тест7'),
+(10, 5, 'тест8'),
+(11, 7, '5'),
+(12, 7, '6'),
+(13, 7, '7'),
+(14, 8, '1'),
+(15, 8, '2'),
+(16, 8, '3');
+
 -- --------------------------------------------------------
 
 --
@@ -45,6 +67,38 @@ CREATE TABLE `categories` (
   `CAT_NAME` varchar(100) NOT NULL,
   `CAT_DESCRIPTION` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `categories`
+--
+
+INSERT INTO `categories` (`CAT_ID`, `CAT_NAME`, `CAT_DESCRIPTION`) VALUES
+(1, 'Учебный процесс', 'Опросы об организации учебного процесса'),
+(2, 'Электронные сервисы', 'Опросы об электронных сервисах университета'),
+(3, 'Студенческая жизнь', 'Опросы о жизни студентов'),
+(4, 'Обратная связь', 'Общие опросы и предложения');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `FEEDBACK_ID` int(11) NOT NULL,
+  `FEEDBACK_NAME` varchar(150) NOT NULL,
+  `FEEDBACK_EMAIL` varchar(100) NOT NULL,
+  `FEEDBACK_SUBJECT` varchar(150) NOT NULL,
+  `FEEDBACK_MESSAGE` text NOT NULL,
+  `FEEDBACK_DATE` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `feedback`
+--
+
+INSERT INTO `feedback` (`FEEDBACK_ID`, `FEEDBACK_NAME`, `FEEDBACK_EMAIL`, `FEEDBACK_SUBJECT`, `FEEDBACK_MESSAGE`, `FEEDBACK_DATE`) VALUES
+(1, 'тест', 'test@bk.ru', 'тест', 'тест тест', '2026-08-21 13:52:55');
 
 -- --------------------------------------------------------
 
@@ -59,6 +113,13 @@ CREATE TABLE `notifications` (
   `NOT_DATE` datetime NOT NULL DEFAULT current_timestamp(),
   `NOT_STATUS` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `notifications`
+--
+
+INSERT INTO `notifications` (`NOT_ID`, `NOT_USER_ID`, `NOT_TEXT`, `NOT_DATE`, `NOT_STATUS`) VALUES
+(1, 1, 'Создан новый опрос: тест5', '2026-09-10 20:08:39', 'Новое');
 
 -- --------------------------------------------------------
 
@@ -77,6 +138,16 @@ CREATE TABLE `polls` (
   `POLL_USER_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Дамп данных таблицы `polls`
+--
+
+INSERT INTO `polls` (`POLL_ID`, `POLL_TITLE`, `POLL_DESCRIPTION`, `POLL_START_DATE`, `POLL_END_DATE`, `POLL_STATUS`, `POLL_CAT_ID`, `POLL_USER_ID`) VALUES
+(1, 'тест', 'тест', '2026-08-17', '2026-08-18', 'Активен', 1, 1),
+(2, 'тест', 'тест', '2026-08-18', '2026-08-19', 'Активен', 1, 1),
+(3, 'тест 2', '123', '2026-09-01', '2026-09-30', 'Активен', 1, 2),
+(4, 'тест5', 'тест7', '2026-09-10', '2026-09-11', 'Активен', 4, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -89,6 +160,14 @@ CREATE TABLE `poll_participants` (
   `PART_POLL_ID` int(11) NOT NULL,
   `PART_STATUS` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `poll_participants`
+--
+
+INSERT INTO `poll_participants` (`PART_ID`, `PART_USER_ID`, `PART_POLL_ID`, `PART_STATUS`) VALUES
+(11, 1, 2, 'Завершен'),
+(12, 1, 4, 'Завершен');
 
 -- --------------------------------------------------------
 
@@ -103,6 +182,21 @@ CREATE TABLE `questions` (
   `QST_TYPE` varchar(30) NOT NULL,
   `QST_ORDER` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `questions`
+--
+
+INSERT INTO `questions` (`QST_ID`, `QST_POLL_ID`, `QST_TEXT`, `QST_TYPE`, `QST_ORDER`) VALUES
+(1, 2, 'тест', 'Один вариант ответа', 1),
+(2, 2, 'тест', 'Один вариант ответа', 2),
+(3, 2, 'тест', 'Один вариант ответа', 3),
+(4, 3, 'тест', 'Один вариант ответа', 1),
+(5, 3, 'тест5', 'Один вариант ответа', 2),
+(6, 3, 'тест', 'Текстовый ответ', 3),
+(7, 4, 'тест 1', 'Один вариант ответа', 1),
+(8, 4, 'тест 2', 'Один вариант ответа', 2),
+(9, 4, 'тест', 'Один вариант ответа', 3);
 
 -- --------------------------------------------------------
 
@@ -152,6 +246,15 @@ CREATE TABLE `users` (
   `USER_REG_DATE` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`USER_ID`, `USER_ROLE_ID`, `USER_FULL_NAME`, `USER_EMAIL`, `USER_PASSWORD`, `USER_REG_DATE`) VALUES
+(1, 3, 'Иван Пупкин', 'test@mail.ru', '$2y$10$30HfQmjx/dFWZJRc18aaKevwVskNY/3psfCrtZA4JYyG5XOIc5I8.', '2026-08-14 07:04:50'),
+(2, 2, 'Учитель', 'teacher@mail.ru', '$2y$10$TePZkguBw/I0x7J4lym.9er54D2JmKHkS9CKHIOzWma70JlKUwjc2', '2026-09-01 17:08:59'),
+(3, 1, 'Админ', 'admin@mail.ru', '$2y$10$FJ5e1cwk1eF4QX0Lo4arVeOrWYWFn7cpUoivA8Dgzx55SJcdb2GYO', '2026-09-01 17:09:19');
+
 -- --------------------------------------------------------
 
 --
@@ -161,8 +264,18 @@ CREATE TABLE `users` (
 CREATE TABLE `user_answers` (
   `ANS_ID` int(11) NOT NULL,
   `ANS_USER_ID` int(11) NOT NULL,
-  `ANS_OPT_ID` int(11) NOT NULL
+  `ANS_OPT_ID` int(11) NOT NULL,
+  `ANS_TEXT` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `user_answers`
+--
+
+INSERT INTO `user_answers` (`ANS_ID`, `ANS_USER_ID`, `ANS_OPT_ID`, `ANS_TEXT`) VALUES
+(9, 1, 4, NULL),
+(10, 1, 8, NULL),
+(12, 1, 16, NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -181,6 +294,12 @@ ALTER TABLE `answer_options`
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`CAT_ID`),
   ADD UNIQUE KEY `UK_CAT_NAME` (`CAT_NAME`);
+
+--
+-- Индексы таблицы `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`FEEDBACK_ID`);
 
 --
 -- Индексы таблицы `notifications`
@@ -250,37 +369,43 @@ ALTER TABLE `user_answers`
 -- AUTO_INCREMENT для таблицы `answer_options`
 --
 ALTER TABLE `answer_options`
-  MODIFY `OPT_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `OPT_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `CAT_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `CAT_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `feedback`
+--
+ALTER TABLE `feedback`
+  MODIFY `FEEDBACK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `NOT_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `NOT_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `polls`
 --
 ALTER TABLE `polls`
-  MODIFY `POLL_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `POLL_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `poll_participants`
 --
 ALTER TABLE `poll_participants`
-  MODIFY `PART_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PART_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `QST_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `QST_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `results`
@@ -298,13 +423,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `USER_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `USER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `user_answers`
 --
 ALTER TABLE `user_answers`
-  MODIFY `ANS_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ANS_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

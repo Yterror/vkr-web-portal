@@ -1,4 +1,3 @@
-```php
 <?php
 
 session_start();
@@ -338,4 +337,3 @@ $polls = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </body>
 
 </html>
-```
